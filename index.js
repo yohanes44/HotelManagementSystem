@@ -6,113 +6,18 @@ const app = express()
 const port = process.env.PORT;
 
 
+const routerHouseKeeping = require("./routes/house_keeping_mgmt");
+const routerReservation = require("./routes/reservation_mgmt");
+const routerRoomMgmt = require("./routes/room_mgmt");
+
+
+app.use("/api/housekeeping", routerHouseKeeping);
+app.use("/api/reservation", routerReservation);
+app.use("/api/roomMgmt", routerRoomMgmt);
+
+
+
 require("./database");
-
-
-
-
-
-
-
-// const AccountSchema = new mongoose.Schema({
-//         firstName: String,
-//         lastName: String,
-//         username: String,
-//         password: String,
-//         role: {
-//             type: String,
-//             enum: ["receptionist", "hotelManager", "customer", "admin"]
-//         },
-//         hotel:{
-//             type: mongoose.Types.ObjectId,
-//             ref: "Hotel"
-//         }
-// });
-
-
-// const RoomSchema = new mongoose.Schema({
-//         roomNumber: { type: Number, required: true },
-//         roomType:{ type: String, enum:["Single", "Double", "Sweet"], require: true},
-//         capacity: { type: Number, required: true, default: 1},
-//         smokingDesigned: { type: Boolean, required: true, default: false},
-//         price: { type: Number, required: true },
-//         bookedDates: [{ type: Date }],
-//         rating: { type: Number },
-//         customerFeedback:[
-//             {user: String, message: String}
-//         ],
-//         houseKeeping: {
-//                      cleaningSchedule: [Date],
-//                      cleaningStatus: { type: String }
-//         },
-//         issueList: [
-//             {
-//                 issue: { type: String },
-//                 issueStatus: { type: String }
-//             }
-//         ],
-//         occupied: { type: Boolean },
-//         customerInfo: {
-//             userInfo: {
-//                 name: String ,
-//                 gender:{ type: String, enum: ["female", "male"], default: "none"},
-//                 phoneNumber: Number,
-//                 email: String
-//             }, 
-//             specialRequest: false,
-//         },
-//         pictures: [{ type: String }],
-//         description: { type: String },
-//         roomFeatures: [{ type: String }],
-//         performance: { type: Number },
-//         outOfOrder: { type: Boolean }
-//     });
-
-
-// const HotelInfoSchema = new mongoose.Schema({
-//     pictures: [{ type: String }],
-//     services: {
-//         parking: { type: Boolean },
-//         restaurant: { type: Boolean },
-//         bar: { type: Boolean },
-//         steamJacuzzi: { type: Boolean }
-//     },
-//     accounts: [AccountSchema]
-// })
-
-
-
-// const citySchema = new mongoose.Schema({
-//     name: {
-//         type: String,
-//         required: true
-//     },
-//     hotels: [{
-//         name: {
-//             type: String,
-//             required: true
-//         },
-//         rating: {
-//             type: Number,
-//             required: true
-//         },
-//         location:{
-//             logitide: String,
-//             latitude:String,
-//         },
-//         address: String,
-//         id: {
-//             type: mongoose.Schema.Types.ObjectId,
-//             required: 'Hotel'
-//         },
-//         totalRooms: {
-//             type: Number,
-//             required: true
-//         }
-//     }]
-// });
-
-
 
 const Hotel = require("./model/hotel");
 const City =require("./model/city");
@@ -274,20 +179,19 @@ const newHotel = new Hotel({
 newHotel.save()
     .then(hotel => {
         // console.log(hotel);
-        // City.findOneAndUpdate(
-        //     { name: hotel.city },
-        //     { $addToSet: { hotels: { name: hotel.hotelName, 
-        //                              rating: hotel.rating, 
-        //                              location: { longitude: 342423, latitude: 86976876},
-        //                              address: hotel.address, 
-        //                              id: hotel._id, 
-        //                              totalRooms: hotel.rooms.length
-        //                             } 
-        //                  } 
-        //     },
-        //     { upsert: true }
-        // )
-
+        City.findOneAndUpdate(
+            { name: hotel.city },
+            { $addToSet: { hotels: { name: hotel.hotelName, 
+                                     rating: hotel.rating, 
+                                     location: { longitude: 342423, latitude: 86976876},
+                                     address: hotel.address, 
+                                     id: hotel._id, 
+                                     totalRooms: hotel.rooms.length
+                                    } 
+                         } 
+            },
+            { upsert: true }
+        )
 
     })
     .catch(err => console.log(err));
