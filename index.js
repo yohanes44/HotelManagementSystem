@@ -19,6 +19,14 @@ app.use("/api/roomMgmt", routerRoomMgmt);
 
 require("./database");
 
+<<<<<<< HEAD
+=======
+
+
+
+
+
+>>>>>>> efc6599b348ceea44899b086d933b702cd9899fd
 const Hotel = require("./model/hotel");
 const City =require("./model/city");
 
@@ -30,8 +38,8 @@ const City =require("./model/city");
 
 
 const newHotel = new Hotel({
-    hotelName: 'Gemechu Biratu',
-    city: 'Debre Berhan',
+    hotelName: 'swe',
+    city: 'Addis Ababa',
     rating: 4.9,
     location: {
         longitude: 12,
@@ -176,9 +184,14 @@ const newHotel = new Hotel({
 
 
 
+<<<<<<< HEAD
 newHotel.save()
     .then(hotel => {
         // console.log(hotel);
+=======
+newHotel.save().then(hotel => {
+         console.log("hotel");
+>>>>>>> efc6599b348ceea44899b086d933b702cd9899fd
         City.findOneAndUpdate(
             { name: hotel.city },
             { $addToSet: { hotels: { name: hotel.hotelName, 
@@ -192,6 +205,10 @@ newHotel.save()
             },
             { upsert: true }
         )
+<<<<<<< HEAD
+=======
+
+>>>>>>> efc6599b348ceea44899b086d933b702cd9899fd
 
     })
     .catch(err => console.log(err));
