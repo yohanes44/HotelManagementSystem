@@ -81,7 +81,10 @@ const hotelSchema = new mongoose.Schema({
        longitude: { type: Number },
        latitude: { type: Number}
    },
-   review: [String],
+   review: {
+     type: [String],
+     required: false
+   },
    address: { type: String, required: true },
    hotelInfo:  HotelInfoSchema,
    phoneNumber: { type: String},

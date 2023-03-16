@@ -1,14 +1,26 @@
 const mongoose = require("mongoose");
 
 
-const Hotel = require(".../model/hotel");
-const City = require(".../model/city");
+const Hotel = require("../../model/hotel");
+const City = require("../../model/city");
 
 
 
 
-function deleteHotel(){
-      
+async function deleteHotel(req, res){
+
+
+        try{
+            await Hotel.findOneAndDelete({hotelName: req.query.hotelName});
+            return res.status(200).json({success: true, message: "Hotel Deleted Succesfully"});
+        }
+        catch(error){
+            if(error){
+                return rs.status(500).json({success: false, reason: error.message});
+            }
+        }
+
+    
 }
 
 

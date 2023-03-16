@@ -2,7 +2,7 @@ const router = require("express").Router()
 
 const { getCalendar} = require("../controller/reservation_mgmt/calendar");
 const { getPerformance} = require("../controller/reservation_mgmt/performance");
-const { getRoom, bookRo} = require("../controller/reservation_mgmt/room");
+const { getRoom, bookRoom} = require("../controller/reservation_mgmt/room");
 
 
 router.get("/", (req, res) => { res.json("Welcome to Reservation Managment"); });
