@@ -28,11 +28,11 @@ const HotelInfoSchema = new mongoose.Schema({
 })
 
 const RoomSchema = new mongoose.Schema({
-    roomNumber: { type: Number, required: true },
+    roomNumber: { type: Number },
     roomType:{ type: String, enum:["Single", "Double", "Sweet"], require: true},
     capacity: { type: Number, required: true, default: 1},
-    smokingDesigned: { type: Boolean, required: true, default: false},
-    price: { type: Number, required: true },
+    smokingDesigned: { type: Boolean, default: false},
+    price: { type: Number },
     bookedDates: [{ type: Date }],
     rating: { type: Number },
     customerFeedback:[
@@ -76,10 +76,10 @@ const hotelSchema = new mongoose.Schema({
        type: String,
        required: true
    },
-   rating: { type: Number, required: true },
+   rating: { type: Number},
    location: {
-       longitude: { type: Number, required: true },
-       latitude: { type: Number, required: true }
+       longitude: { type: Number },
+       latitude: { type: Number}
    },
    review: [String],
    address: { type: String, required: true },
