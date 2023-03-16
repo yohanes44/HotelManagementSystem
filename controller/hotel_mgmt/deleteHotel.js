@@ -11,8 +11,10 @@ async function deleteHotel(req, res){
 
 
         try{
-            await Hotel.findOneAndDelete({hotelName: req.query.hotelName});
+              
+            await Hotel.findOneAndDelete({_id: req.params.hotelId});
             return res.status(200).json({success: true, message: "Hotel Deleted Succesfully"});
+        
         }
         catch(error){
             if(error){

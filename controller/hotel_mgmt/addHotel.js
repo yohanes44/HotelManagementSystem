@@ -22,19 +22,19 @@ async function addHotel(req, res){
        
         });
     
-        newHotel.save().then(hotel => {
-           City.findOneAndUpdate(
-            { name: hotel.city },
-            { $addToSet: { hotels: { name: hotel.hotelName, 
-                                        address: hotel.address, 
-                                        id: hotel._id,
+        await newHotel.save();
+
+         await City.findOneAndUpdate(
+            { name: newHotel.city },
+            { $addToSet: { hotels: { name: newHotel.hotelName, 
+                                        address: newHotel.address, 
+                                        id: newHotel._id,
                                     } 
                             } 
             },
             { upsert: true }
         )
-    
-        })
+
        return res.status(200).json({success: true, message: "Hotel added succesfully", newHotel});
     }
     catch(error){

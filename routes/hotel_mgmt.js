@@ -11,7 +11,7 @@ router.get("/", (req, res) => { res.json("Welcome to Hotel Managment"); });
 router.post("/addHotel", addHotel);
 router.get("/gethotel", getHotel);
 router.put("/manageHotel/:hotelId", manageHotel);
-router.delete("/deleteHotel/", deleteHotel);
+router.delete("/deleteHotel/:hotelId", deleteHotel);
 
 
 
