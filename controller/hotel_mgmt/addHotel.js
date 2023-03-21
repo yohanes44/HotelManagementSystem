@@ -9,32 +9,35 @@ const City = require("../../model/city");
 
 
 async function addHotel(req, res){
-    const { hotelName, city, address} = req.body;
-    console.log(req.body);
+    // const { hotelName, city, address, roomType, capacity} = req.body;
+    // console.log(req.body);
         
     try{
+        
         const newHotel = await new Hotel({
-            hotelName: hotelName,
-            city: city,
-            address: address,
-            // phoneNumber: phoneNumber,
-            // email: email,
-       
+            hotelName: req.body.hotelName,
+            city: req.body.city,
+            address: req.body.address
         });
+
+        req.body.rooms.map(function(room){
+            newHotel.rooms.push(room);
+        })
+        
     
-        newHotel.save().then(hotel => {
-           City.findOneAndUpdate(
-            { name: hotel.city },
-            { $addToSet: { hotels: { name: hotel.hotelName, 
-                                        address: hotel.address, 
-                                        id: hotel._id,
+         await newHotel.save();
+
+         await City.findOneAndUpdate(
+            { name: newHotel.city },
+            { $addToSet: { hotels: { name: newHotel.hotelName, 
+                                        address: newHotel.address, 
+                                        id: newHotel._id,
                                     } 
                             } 
             },
             { upsert: true }
         )
-    
-        })
+
        return res.status(200).json({success: true, message: "Hotel added succesfully", newHotel});
     }
     catch(error){

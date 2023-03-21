@@ -52,7 +52,7 @@ const RoomSchema = new mongoose.Schema({
     customerInfo: {
         userInfo: {
             name: String ,
-            gender:{ type: String, enum: ["female", "male"], default: "none"},
+            // gender:{ type: String, enum: ["female", "male", "none"], default: "none"},
             phoneNumber: Number,
             email: String
         }, 
@@ -68,7 +68,7 @@ const RoomSchema = new mongoose.Schema({
 
 const hotelSchema = new mongoose.Schema({
 
-    hotelName: {
+  hotelName: {
        type: String,
        required: true
    },
@@ -76,10 +76,10 @@ const hotelSchema = new mongoose.Schema({
        type: String,
        required: true
    },
-   rating: { type: Number},
+   rating: { type: Number, required: false},
    location: {
-       longitude: { type: Number },
-       latitude: { type: Number}
+       longitude: { type: Number, required: false },
+       latitude: { type: Number, required: false}
    },
    review: {
      type: [String],
@@ -87,8 +87,14 @@ const hotelSchema = new mongoose.Schema({
    },
    address: { type: String, required: true },
    hotelInfo:  HotelInfoSchema,
-   phoneNumber: { type: String},
-   email: { type: String},
+   phoneNumber: { 
+    type: String,
+    required: false
+   },
+   email: { 
+    type: String,
+    required: false
+    },
    rooms: [RoomSchema]
 });
 
