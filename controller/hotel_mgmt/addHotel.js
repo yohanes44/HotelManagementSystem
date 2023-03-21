@@ -13,7 +13,7 @@ async function addHotel(req, res){
     // console.log(req.body);
         
     try{
-        
+
         const newHotel = await new Hotel({
             hotelName: req.body.hotelName,
             city: req.body.city,

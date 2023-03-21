@@ -11,9 +11,7 @@ router.get("/performance/:roomId", getRooms);
 router.get("/calendar/:roomId", getRooms);
 router.get("/reservationstatus/:roomId", getRooms);
 router.get("/rooms/:hotelId", getRooms);
-router.get("/reserve/:roomNumber", bookRoom);
+router.post("/book", bookRoom);
 // router.post("/book/:roomId", bookRoom);
 
-
-
-module.exports = router
+module.exports = router;
