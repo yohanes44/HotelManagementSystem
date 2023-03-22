@@ -57,18 +57,24 @@ async function reserveRoom(req, res){
 
 
 async function bookRoom(req, res){
-    console.log("bookRoom function");
 
     try{
         const hotelFound = await Hotel.findOne({_id: req.query.hotelId});
-        hotelFound.rooms.map(function(room){
-            if(room.roomNumber === req.query.roomNumber){
+      
+        let foundRoom = hotelFound.rooms.find(function(room){
+            if(room.roomNumber == req.query.roomNumber && !room.occupied){
                 room.occupied = true;
-                // return true;
+                return true; 
             }
+                
         });
         hotelFound.save();
-        return res.status(200).json({success: true, message: "Room Booked Succesfully"});
+        if(!foundRoom){
+            return res.status(500).json({success: false, message: `Room Number ${req.query.roomNumber} is not available`});
+        }
+        if(foundRoom){
+            return res.status(200).json({success: true, message: `Room Number ${foundRoom.roomNumber} Booked Succesfully`});
+        }
     }
 
     catch(error){
@@ -76,8 +82,6 @@ async function bookRoom(req, res){
             return res.status(500).json({success: true, result: error.message});
         }
     }
-
-    // return res.status(200).json({success: true, message: "BookRoom Function"})
 }
 
 

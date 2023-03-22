@@ -48,7 +48,7 @@ const RoomSchema = new mongoose.Schema({
             issueStatus: { type: String }
         }
     ],
-    occupied: { type: Boolean },
+    occupied: { type: Boolean, default: false },
     customerInfo: {
         userInfo: {
             name: String ,
