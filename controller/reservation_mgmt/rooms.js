@@ -40,18 +40,18 @@ async function getRooms(req, res){
 }
 
 
-async function reserveRoom(req, res){
-    try{
-        const hotelFound = await Hotel.findOne({_id: req.params.hotelId});
-        // const roomNum = 
+// async function reserveRoom(req, res){
+//     try{
+//         const hotelFound = await Hotel.findOne({_id: req.params.hotelId});
+//         // const roomNum = 
 
-    }
-    catch(error){
-        if(error){
-            res.status(500).json({success: false, reason: error.message})
-        }
-    }
-}
+//     }
+//     catch(error){
+//         if(error){
+//             res.status(500).json({success: false, reason: error.message})
+//         }
+//     }
+// }
 
 
 
